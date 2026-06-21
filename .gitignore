@@ -1,0 +1,10 @@
+# VS Codeの設定やキャッシュを無視
+.vscode/
+*.log
+
+# 隠しファイルや一時ファイルを無視
+#Macのパソコンが自動で作るファイル
+.DS_Store
+
+#Windowsのパソコンが自動で作るファイル
+Thumbs.db

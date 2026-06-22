@@ -1,12 +1,14 @@
 #!/bin/bash
 
-LOG_DIR="$HOME/work_logs"
+LOG_DIR="$HOME/tracker-logs"
 TODAY=$(date '+%Y-%m-%d')
-LOG_FILE="$LOG_DIR/${TODAY}_tracker.log"
+LOG_FILE="$LOG_DIR/${TODAY}-tracker.log"
+
+arg_lower=$(echo "$1" | tr '[:upper:]' '[:lower:]')
 
 mkdir -p "$LOG_DIR"
 
-case "$1" in
+case "$arg_lower" in
     in)
         # Check if the log file exists
         if [ -f "$LOG_FILE" ]; then
@@ -54,6 +56,4 @@ case "$1" in
     exit 1
     ;;
 esac
-
-LAST_STATUS="$(awk 'END {print $NF}' "$LOG_FILE")"
 

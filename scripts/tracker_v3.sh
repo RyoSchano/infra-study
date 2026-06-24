@@ -58,6 +58,7 @@ case "$arg_lower" in
             echo "No log file found for today."
             exit 1
         fi
+        # LAST_STATUS=$(awk 'END {print $NF}' "$LOG_FILE")
         LAST_STATUS=$(tail -n 1 "$LOG_FILE" | cut -d ' ' -f 3)
         if [ "$LAST_STATUS" = "IN" ]; then
             echo "Last status is IN. Summary unavailable."

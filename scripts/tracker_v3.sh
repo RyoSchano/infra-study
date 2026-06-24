@@ -12,7 +12,8 @@ case "$arg_lower" in
     in)
         # Check if the log file exists
         if [ -f "$LOG_FILE" ]; then
-            LAST_STATUS=$(awk 'END {print $NF}' "$LOG_FILE")
+            # LAST_STATUS=$(awk 'END {print $NF}' "$LOG_FILE")
+            LAST_STATUS=$(tail -n 1 "$LOG_FILE" | cut -d ' ' -f 3)
             # Check if the last status is "IN"
             if [ "$LAST_STATUS" = "IN" ]; then
                 echo "You are already logged in."
@@ -30,7 +31,8 @@ case "$arg_lower" in
             echo "No log file found for today. Please log in first."
             exit 1
         fi
-        LAST_STATUS=$(awk 'END {print $NF}' "$LOG_FILE")
+        # LAST_STATUS=$(awk 'END {print $NF}' "$LOG_FILE")
+        LAST_STATUS=$(tail -n 1 "$LOG_FILE" | cut -d ' ' -f 3)
         # Check if the last status is "OUT"
         if [ "$LAST_STATUS" = "OUT" ]; then
             echo "You are already logged out."
@@ -56,14 +58,19 @@ case "$arg_lower" in
             echo "No log file found for today."
             exit 1
         fi
+        LAST_STATUS=$(tail -n 1 "$LOG_FILE" | cut -d ' ' -f 3)
+        if [ "$LAST_STATUS" = "IN" ]; then
+            echo "Last status is IN. Summary unavailable."
+            exit 1
+        fi
 
         echo "===== Today's time summary ====="
         while read DATE TIME STATUS; do
             if [ "$STATUS" = "IN" ]; then
-                START_TIME="$TIME"
+                IN_TIME="$(date -d "$DATE $TIME" +%s)"
             elif [ "$STATUS" = "OUT" ]; then
-                END_TIME="$TIME"
-                DURATION=$(date -d "$DATE $END_TIME" +%s) - $(date -d "$DATE $START_TIME" +%s)
+                OUT_TIME="$(date -d "$DATE $TIME" +%s)"
+                DURATION=$((OUT_TIME - IN_TIME))
                 TOTAL=$((TOTAL + DURATION))
             fi
         done < "$LOG_FILE"

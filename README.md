@@ -11,8 +11,15 @@
 ## ディレクトリ構成
 ```
 infra-study/
+├ command-reference/
+│           ├ 
+│
 ├ initial-settings/
 │           └ 各ツールの設定管理
+│
+├ project-ideas/
+│       ├ create-shell-scrips/
+│       ├ 
 │
 ├ runbooks/
 │       └ 作成した手順書

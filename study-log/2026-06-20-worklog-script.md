@@ -7,7 +7,7 @@
 ```
     #!/bin/bash
 
-    LOG_DIR="$HOME/work_logs"
+    LOG_DIR="$HOME/work-logs"
     TODAY=$(date '+%Y-%m-%d')
     LOG_FILE="$LOG_DIR/${TODAY}.log"
 

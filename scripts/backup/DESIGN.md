@@ -11,7 +11,7 @@
 
 *保存・出力
 ├ アーカイブファイル保存先: $HOME/archives/元の名前_YYYY-MM-DD_HH-MM-SS.tar.gz
-└ ログ保存場所: $HOME/logs/YYYY-MM-DD.log
+└ ログ保存場所: $HOME/backup-logs/YYYY-MM-DD.log
 
 *ログ形式: YYYY-MM-DD HH:MM:SS SOURCE <Success|Error>
 ├ $1 → バックアップ時刻
@@ -23,7 +23,7 @@
 【大枠の処理の流れ】事前チェック → 準備 → 本処理
 1. 引数が正しく指定されているかチェック
 2. アーカイブ・ログ用のディレクトリがなければ作成
-3. SOURCE_DIR をアーカイブ化して保存先へ出力
+3. SOURCE をアーカイブ化して保存先へ出力
 4. アーカイブ化が成功したか結果を判定
 5. 処理内容をログファイルに追記・保存
 

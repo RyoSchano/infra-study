@@ -1,4 +1,4 @@
 #!/bin/bash
 
-SOURCE_DIR="$1"
+SOURCE="$1"
 ARCHIVE_DIR=

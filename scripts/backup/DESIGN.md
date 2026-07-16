@@ -31,6 +31,7 @@
 ```
 *主要変数・定数
 ├ SOURCE
+├ SOURCE_NAME
 ├ ARCHIVE_FILE
 ├ ARCHIVE_DIR
 ├ LOG_FILE

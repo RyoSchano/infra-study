@@ -1,19 +1,24 @@
 #!/bin/bash
 
+# 固定の保存先を定義
 ARCHIVE_DIR="$HOME/archives"
 LOG_DIR="$HOME/backup-logs"
 
+# 引数の数をチェック
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 <source>" >&2
     exit 1
 fi
 
+# 引数からソースを取得
 SOURCE="$1"
 
 if [ ! -e "$SOURCE" ]; then
     echo "Error: Source '$SOURCE' does not exist." >&2
     exit 1
 fi
+
+# ディレクトリが存在しない場合は作成
 if ! mkdir -p "$ARCHIVE_DIR"; then
     echo "Error: Failed to create archive directories." >&2
     exit 1
@@ -23,6 +28,7 @@ if ! mkdir -p "$LOG_DIR"; then
     exit 1
 fi
 
+# 日付と時刻を取得して、アーカイブファイル名とログファイル名を作成
 SOURCE_NAME=$(basename "$SOURCE")
 DATE=$(date '+%Y-%m-%d')
 TIME=$(date '+%H-%M-%S')

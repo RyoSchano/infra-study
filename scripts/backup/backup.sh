@@ -1,8 +1,14 @@
 #!/bin/bash
 
-SOURCE="$1"
 ARCHIVE_DIR="$HOME/archives"
 LOG_DIR="$HOME/backup-logs"
+
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <source>"
+    exit 1
+fi
+
+SOURCE="$1"
 
 SOURCE_NAME=$(basename "$SOURCE")
 DATE=$(date '+%Y-%m-%d')

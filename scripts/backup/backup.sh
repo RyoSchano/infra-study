@@ -39,7 +39,7 @@ LOG_FILE="$LOG_DIR/$DATE.log"
 if tar -czf "$ARCHIVE_FILE" -- "$SOURCE"; then
     echo "Backup completed: $ARCHIVE_FILE" | tee -a "$LOG_FILE"
 else
-    echo "Error: Failed to create archive." >&2
+    echo "Error: Failed to create archive." | tee -a "$LOG_FILE" >&2
     rm -f -- "$ARCHIVE_FILE"
     exit 1
 fi

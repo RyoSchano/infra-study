@@ -36,4 +36,11 @@ TIME=$(date '+%H-%M-%S')
 ARCHIVE_FILE="${ARCHIVE_DIR}/${SOURCE_NAME}_${DATE}_${TIME}.tar.gz"
 LOG_FILE="$LOG_DIR/$DATE.log"
 
+if tar -czf "$ARCHIVE_FILE" -- "$SOURCE"; then
+    echo "Backup completed: $ARCHIVE_FILE" | tee -a "$LOG_FILE"
+else
+    echo "Error: Failed to create archive." >&2
+    rm -f -- "$ARCHIVE_FILE"
+    exit 1
+fi
 

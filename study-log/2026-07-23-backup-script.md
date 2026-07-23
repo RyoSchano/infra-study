@@ -49,7 +49,6 @@
         w:ファイルを作成・削除できる
         x:ディレクトリ内へアクセスできる
     HOME="$TEST_HOME" ./backup.sh test.txt
-
     確認後は、削除できるように権限を戻す
     chmod 700 "$TEST_HOME/archives"
     rm -r -- "$TEST_HOME"
@@ -79,4 +78,4 @@ touch "$HOME/test-dir/sub-dir/file2.txt"
 ## 課題
 - 英語を積極的に使う
 - 動作確認項目を割り出せるようにする
-
+- 学習ログが乱雑になってきたので、疑問点と解決方法の項目を増やし記録していく

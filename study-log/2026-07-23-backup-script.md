@@ -4,7 +4,12 @@
 - `backup.sh`の処理ごとに簡単な英語コメントを追加
 - `date`コマンドのフォーマット指定を確認
 - ChatGPTとGitHubを連携して、スクリプト全体をレビュー
-- 
+- 動作確認
+  - アーカイブファイルが作成されたか
+  - アーカイブの中身が正しいか
+  - 成功ログが記録されたか
+  - 失敗時にエラーログが記録されたか
+  - 失敗途中の不完全なアーカイブが削除されたか
 
 ## 学んだこと
 - `date`の`+`は、フォーマット指定の先頭に1つ付ける
@@ -17,13 +22,55 @@
   - `Create`: 作成する
   - `Log`: ログに記録する
 - `destination`は保存先
+- コマンドラインで行の先頭へ移動`Ctrl + A`
+- 
+#### 動作確認↓
+- アーカイブファイルが作成されたか
+- アーカイブの中身が正しいか
+- 成功ログが記録されたか
+- 失敗時にエラーログが記録されたか
+- 失敗途中の不完全なアーカイブが削除されたか
+```
+・アーカイブの存在確認  
+    ls -l "$HOME/archive"
+・中身の確認
+    tar -tzf "$HOME/archives/アーカイブ名.tar.gz"
+    -t 展開せずに、アーカイブの中身を一覧表示
+・ログの確認
+    cat "$HOME/backup-logs/ログファイル名"
+・アーカイブ化失敗の再現
+    TEST_HOME=$(mktemp -d)
+        mktemp 安全なファイル・ディレクトリを作る(/tmp/tmp.aB3xYz91Qpなどのパスを出力)
+        -d ディレクトリを指定
+    mkdir -p "$TEST_HOME/archives"
+    chmod 500 "$TEST_HOME/archives"
+        ディレクトリ内にファイルを作成するには書き込みと実行権限が必要
+        r:ディレクトリ内のファイル名を確認できる
+        w:ファイルを作成・削除できる
+        x:ディレクトリ内へアクセスできる
+    HOME="$TEST_HOME" ./backup.sh test.txt
 
+    確認後は、削除できるように権限を戻す
+    chmod 700 "$TEST_HOME/archives"
+    rm -r -- "$TEST_HOME"
+    unset TEST_HOME
+
+tar: ... Permission denide ← tar本体のエラー
+Error: Failed to create archive. ← backup.shが失敗を検知した証拠
+
+```
+#### テストのディレクトリ作成
+```
+mkdir -p "HOME/test-dir/sub-dir"
+echo "This is file 1." > "$HOME/test-dir/file1.txt"
+touch "$HOME/test-dir/sub-dir/file2.txt"
+```
 ## つまずいたこと
 - 実行環境では、日本語入力を設定していないため、コメントを英語で記述する必要があったが、英語表現の知識が不足しており、処理内容を自力で英文にできなかった
   - 原因  
     英単語や文法だけでなく、シェルスクリプトで使われる短いコメントの書き方に慣れていなかった
   - 解決方法  
-    処理内容を日本語で整理してから、`Check``Set``Create`などの動詞で始まる短い英文へ置き換えた
+    処理内容を日本語で整理してから、`Check Set Create`などの動詞で始まる短い英文へ置き換えた
   - 例
     - Check whether the source exists
     - Set the fixed destinations
@@ -31,4 +78,5 @@
 
 ## 課題
 - 英語を積極的に使う
+- 動作確認項目を割り出せるようにする
 

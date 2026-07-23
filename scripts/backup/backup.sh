@@ -17,11 +17,11 @@ if [ ! -e "$SOURCE" ]; then
 fi
 # ディレクトリが存在しない場合は作成 Create the directories if they do not exist
 if ! mkdir -p "$ARCHIVE_DIR"; then
-    echo "Error: Failed to create archive directories." >&2
+    echo "Error: Failed to create archive directory." >&2
     exit 1
 fi
 if ! mkdir -p "$LOG_DIR"; then
-    echo "Error: Failed to create log directories." >&2
+    echo "Error: Failed to create log directory." >&2
     exit 1
 fi
 
@@ -33,8 +33,7 @@ TIME=$(date '+%H-%M-%S')
 # Set the archive file path and log file path 
 ARCHIVE_FILE="${ARCHIVE_DIR}/${SOURCE_NAME}_${DATE}_${TIME}.tar.gz"
 LOG_FILE="$LOG_DIR/$DATE.log"
-# Create a compressed archive of the source
-# Log the backup result
+# Create a compressed archive and log the backup result
 if tar -czf "$ARCHIVE_FILE" -- "$SOURCE"; then
     echo "Backup completed: $ARCHIVE_FILE" | tee -a "$LOG_FILE"
 else
